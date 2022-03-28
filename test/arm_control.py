@@ -8,21 +8,33 @@ import argparse
 import sys
 import time
 import almath
+from naoqi import ALProxy
 
 pepper_ip = "128.237.247.249"
 
-def main(session):
+def main(session, speech):
     """
     This example uses the angleInterpolation method.
     """
     # Get the service ALMotion.
+    motion_service = session.service("ALMotion")
+
     motion_service.setStiffnesses("Body", 0.1)
     motion_service = session.service("ALMotion")
+    # Example showing a single trajectory for one joint
+    # Interpolates the head yaw to 1.0 radian and back to zero in 2.0 seconds
+    names = "LElbowRoll"
+    angleLists = [-70.0*almath.TO_RAD, -70.0*almath.TO_RAD, 0.0]
+    #              2 times
+    timeLists = [1.0, 4.0, 5]
+    isAbsolute = True
+    motion_service.angleInterpolation(names, angleLists, timeLists, isAbsolute)
+    tts.say("Hi")
 
 
 # Open palm
 # ---------------------- Model - --------------------------
-#         BodyName   Stiffness     Command      Sensor
+#         BodyNspeechame   Stiffness     Command      Sensor
 #          HeadYaw    0.000000 - 0.131922 - 0.131922
 #        HeadPitch    0.000000    0.445059    0.739379
 #   LShoulderPitch    1.000000    1.581312    1.569262
@@ -86,4 +98,7 @@ if __name__ == "__main__":
         print("Can't connect to Naoqi at ip \"" + args.ip + "\" on port " + str(args.port) + ".\n"
               "Please check your script arguments. Run with -h option for help.")
         sys.exit(1)
-    main(session)
+
+    tts = ALProxy("ALTextToSpeech", pepper_ip, 9559)
+
+    main(session, tts)
