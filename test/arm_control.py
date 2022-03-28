@@ -16,59 +16,59 @@ def main(session):
     This example uses the angleInterpolation method.
     """
     # Get the service ALMotion.
-
+    motion_service.setStiffnesses("Body", 0.1)
     motion_service = session.service("ALMotion")
 
-    ## print(motion_service.getBodyNames("Body"))
-    # ['HeadYaw', 'HeadPitch', 'LShoulderPitch', 'LShoulderRoll', 'LElbowYaw', 'LElbowRoll', 'LWristYaw', 'LHand', 'HipRoll', 'HipPitch',
-    #     'KneePitch', 'RShoulderPitch', 'RShoulderRoll', 'RElbowYaw', 'RElbowRoll', 'RWristYaw', 'RHand', 'WheelFL', 'WheelFR', 'WheelB']
 
-    motion_service.setStiffnesses("RElbowRoll", 1.0)
+# Open palm
+# ---------------------- Model - --------------------------
+#         BodyName   Stiffness     Command      Sensor
+#          HeadYaw    0.000000 - 0.131922 - 0.131922
+#        HeadPitch    0.000000    0.445059    0.739379
+#   LShoulderPitch    1.000000    1.581312    1.569262
+#    LShoulderRoll    1.000000    0.143783    0.138058
+#        LElbowYaw    1.000000   -1.218096   -1.211845
+#       LElbowRoll    1.000000   -0.509870   -0.504680
+#        LWristYaw    1.000000   -0.108126   -0.150374
+#          HipRoll    1.000000   -0.022942   -0.027612
+#         HipPitch    1.000000   -0.021623   -0.027612
+#        KneePitch    1.000000    0.002908   -0.010738
+#   RShoulderPitch    0.000000    1.306952    1.306952
+#    RShoulderRoll    0.000000   -0.038350   -0.038350
+#        RElbowYaw    0.000000    1.234855    1.234855
+#       RElbowRoll    0.000000    1.210311    1.210311
+#        RWristYaw    0.000000    1.624464    1.624464
+#            LHand    1.000000    0.390608    0.414763
+#            RHand    0.000000    0.479789    0.479789
+#          WheelFL    0.000000    0.000000    0.000000
+#          WheelFR    0.000000    0.000000    0.000000
+#           WheelB    0.000000    0.000000    0.000000
 
-    # Example showing a single target angle for one joint
-    # Interpolates the head yaw to 1.0 radian in 1.0 second
-    names = "RElbowRoll"
-    angleLists = 70.0*almath.TO_RAD
-    timeLists = 1.0
-    isAbsolute = True
-    motion_service.angleInterpolation(names, angleLists, timeLists, isAbsolute)
+# Palm down
+# ---------------------- Model - --------------------------
+#         BodyName   Stiffness     Command      Sensor
+#          HeadYaw    0.000000 - 0.131922 - 0.131922
+#        HeadPitch    0.000000    0.445059    0.739379
+#   LShoulderPitch    1.000000    1.573484    1.576932
+#    LShoulderRoll    1.000000    0.141162    0.141126
+#        LElbowYaw    1.000000   -1.216226   -1.213379
+#       LElbowRoll    1.000000   -0.507074   -0.516952
+#        LWristYaw    1.000000   -0.100342   -0.138102
+#          HipRoll    1.000000   -0.022942   -0.026078
+#         HipPitch    1.000000   -0.021623   -0.027612
+#        KneePitch    1.000000    0.002908   -0.010738
+#   RShoulderPitch    0.000000    1.310020    1.310020
+#    RShoulderRoll    0.000000   -0.024544   -0.024544
+#        RElbowYaw    0.000000    1.231787    1.231787
+#       RElbowRoll    0.000000    1.173496    1.173496
+#        RWristYaw    0.000000   -1.566256   -1.566256
+#            LHand    1.000000    0.371888    0.384886
+#            RHand    0.000000    0.497364    0.497364
+#          WheelFL    0.000000    0.000000    0.000000
+#          WheelFR    0.000000    0.000000    0.000000
+#           WheelB    0.000000    0.000000    0.000000
 
-    time.sleep(10.0)
 
-    # Example showing a single trajectory for one joint
-    # Interpolates the head yaw to 1.0 radian and back to zero in 2.0 seconds
-    # names = "HeadYaw"
-    #              2 angles
-    # angleLists = [30.0*almath.TO_RAD, 0.0]
-    # #              2 times
-    # timeLists = [1.0, 2.0]
-    # isAbsolute = True
-    # motion_service.angleInterpolation(names, angleLists, timeLists, isAbsolute)
-
-    # time.sleep(1.0)
-
-    # # Example showing multiple trajectories
-    # names = ["HeadYaw", "HeadPitch"]
-    # angleLists = [30.0*almath.TO_RAD, 30.0*almath.TO_RAD]
-    # timeLists = [1.0, 1.2]
-    # isAbsolute = True
-    # motion_service.angleInterpolation(names, angleLists, timeLists, isAbsolute)
-
-    # # Example showing multiple trajectories
-    # # Interpolates the head yaw to 1.0 radian and back to zero in 2.0 seconds
-    # # while interpolating HeadPitch up and down over a longer period.
-    # names = ["HeadYaw", "HeadPitch"]
-    # # Each joint can have lists of different lengths, but the number of
-    # # angles and the number of times must be the same for each joint.
-    # # Here, the second joint ("HeadPitch") has three angles, and
-    # # three corresponding times.
-    # angleLists = [[50.0*almath.TO_RAD, 0.0],
-    #               [-30.0*almath.TO_RAD, 30.0*almath.TO_RAD, 0.0]]
-    # timeLists = [[1.0, 2.0], [1.0, 2.0, 3.0]]
-    # isAbsolute = True
-    # motion_service.angleInterpolation(names, angleLists, timeLists, isAbsolute)
-
-    # motion_service.setStiffnesses("Head", 0.0)
 
 
 if __name__ == "__main__":
