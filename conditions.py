@@ -44,6 +44,7 @@ def main(session, speech):
                 speech.say("I lose")
             else:
                 break
+            rest(motion_service)
     #cheat occurs on 4th, 8th, and 15th rounds
     #if can't cheat successfully, everything gets pushed back
     elif condition == "cheat" or condition == "lose":
@@ -55,21 +56,22 @@ def main(session, speech):
                 break
             speech.say("3 2 1")
 
-            isUp = True
+            # isUp = True
             if sequence[i] == 1:
                 arm_control.palmUp(motion_service)
             elif sequence[i] == 2:
                 arm_control.palmDown(motion_service)
-                isUp = False
+                # isUp = False
 
             if i in cheatRounds: #we are in a cheating round
                 option = raw_input("Press 1=robot can cheat, press 2=robot cannot cheat")
                 if option == "1":
                     #switch the motion from up to down or down to up
-                    if isUp:
-                        arm_control.palmDown(motion_service)
-                    else:
-                        arm_control.palmUp(motion_service)
+                    # if isUp:
+                    #     arm_control.palmDown(motion_service)
+                    # else:
+                    #     arm_control.palmUp(motion_service)
+                    arm_control.changeChoice(motion_service)
                 else:
                     #increment rounds so that everything gets pushed back
                     numRounds = numRounds + 1
@@ -80,7 +82,7 @@ def main(session, speech):
                     speech.say("I win")
                 else:
                     speech.say("I lose")
-
+                rest(motion_service)
             else: #normal case
                 option = raw_input("Press 1=win or 2=lose: ")
                 if option == "1":
@@ -89,6 +91,7 @@ def main(session, speech):
                     speech.say("I lose")
                 else:
                     break
+                rest(motion_service)
     else:
         print("Error: choose condition control, cheat, or lose")
 
