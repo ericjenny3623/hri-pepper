@@ -19,68 +19,34 @@ def main(session, speech):
     # Get the service ALMotion.
     motion_service = session.service("ALMotion")
 
-    motion_service.setStiffnesses("Body", 0.1)
-    motion_service = session.service("ALMotion")
+    motion_service.setStiffnesses("Body", 1.0)
     # Example showing a single trajectory for one joint
     # Interpolates the head yaw to 1.0 radian and back to zero in 2.0 seconds
-    names = "LElbowRoll"
-    angleLists = [-70.0*almath.TO_RAD, -70.0*almath.TO_RAD, 0.0]
-    #              2 times
-    timeLists = [1.0, 4.0, 5]
+    # names = "LElbowRoll"
+    # angleLists = [-70.0*almath.TO_RAD, -70.0*almath.TO_RAD, 0.0]
+    # #              2 times
+    # timeLists = [1.0, 4.0, 5]
+    # isAbsolute = True
+    # motion_service.angleInterpolation(names, angleLists, timeLists, isAbsolute)
+
+    setRArm(motion_service, 1.3, -0.03, 1.23, 1.21, 1.62, 1.0)
+    setRArm(motion_service, 1.3, -0.03, 1.23, 1.17, -1.56, 1.0)
+    setRArm(motion_service, 1.3, -0.03, 1.23, 1.17, 0, 0.0)
+
+
+def setRArm(proxy, shoulderPitch, shoulderRoll, elbowYaw, elbowRoll, wristYaw, hand):
+    names = ["RShoulderPitch", "RShoulderRoll",
+             "RElbowYaw", "RElbowRoll", "RWristYaw", "RHand"]
+    angleLists = [[shoulderPitch, shoulderPitch, 1.615282],
+              [shoulderRoll, shoulderRoll, -0.0874],
+              [elbowYaw, elbowYaw, 1.463418],
+              [elbowRoll, elbowRoll, 0.204020],
+              [wristYaw, wristYaw, 0.420274],
+              [hand, hand, 0.5]]
+    times = [1.0, 4.0, 5.0]
+    timeLists = [times, times, times, times, times, times]
     isAbsolute = True
-    motion_service.angleInterpolation(names, angleLists, timeLists, isAbsolute)
-    tts.say("Hi")
-
-
-# Open palm
-# ---------------------- Model - --------------------------
-#         BodyNspeechame   Stiffness     Command      Sensor
-#          HeadYaw    0.000000 - 0.131922 - 0.131922
-#        HeadPitch    0.000000    0.445059    0.739379
-#   LShoulderPitch    1.000000    1.581312    1.569262
-#    LShoulderRoll    1.000000    0.143783    0.138058
-#        LElbowYaw    1.000000   -1.218096   -1.211845
-#       LElbowRoll    1.000000   -0.509870   -0.504680
-#        LWristYaw    1.000000   -0.108126   -0.150374
-#          HipRoll    1.000000   -0.022942   -0.027612
-#         HipPitch    1.000000   -0.021623   -0.027612
-#        KneePitch    1.000000    0.002908   -0.010738
-#   RShoulderPitch    0.000000    1.306952    1.306952
-#    RShoulderRoll    0.000000   -0.038350   -0.038350
-#        RElbowYaw    0.000000    1.234855    1.234855
-#       RElbowRoll    0.000000    1.210311    1.210311
-#        RWristYaw    0.000000    1.624464    1.624464
-#            LHand    1.000000    0.390608    0.414763
-#            RHand    0.000000    0.479789    0.479789
-#          WheelFL    0.000000    0.000000    0.000000
-#          WheelFR    0.000000    0.000000    0.000000
-#           WheelB    0.000000    0.000000    0.000000
-
-# Palm down
-# ---------------------- Model - --------------------------
-#         BodyName   Stiffness     Command      Sensor
-#          HeadYaw    0.000000 - 0.131922 - 0.131922
-#        HeadPitch    0.000000    0.445059    0.739379
-#   LShoulderPitch    1.000000    1.573484    1.576932
-#    LShoulderRoll    1.000000    0.141162    0.141126
-#        LElbowYaw    1.000000   -1.216226   -1.213379
-#       LElbowRoll    1.000000   -0.507074   -0.516952
-#        LWristYaw    1.000000   -0.100342   -0.138102
-#          HipRoll    1.000000   -0.022942   -0.026078
-#         HipPitch    1.000000   -0.021623   -0.027612
-#        KneePitch    1.000000    0.002908   -0.010738
-#   RShoulderPitch    0.000000    1.310020    1.310020
-#    RShoulderRoll    0.000000   -0.024544   -0.024544
-#        RElbowYaw    0.000000    1.231787    1.231787
-#       RElbowRoll    0.000000    1.173496    1.173496
-#        RWristYaw    0.000000   -1.566256   -1.566256
-#            LHand    1.000000    0.371888    0.384886
-#            RHand    0.000000    0.497364    0.497364
-#          WheelFL    0.000000    0.000000    0.000000
-#          WheelFR    0.000000    0.000000    0.000000
-#           WheelB    0.000000    0.000000    0.000000
-
-
+    proxy.angleInterpolation(names, angleLists, timeLists, isAbsolute)
 
 
 if __name__ == "__main__":
