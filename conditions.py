@@ -41,8 +41,7 @@ else if condition == "cheat" or condition == "lose":
         else:
             break
 
-        #cheating here!
-        if i in cheatRounds:
+        if i in cheatRounds: #we are in a cheating round
             option = raw_input("Press 1=robot can cheat, press 2=robot cannot cheat")
             if option == "1":
                 #switch the motion from up to down or down to up
@@ -60,6 +59,15 @@ else if condition == "cheat" or condition == "lose":
                 speech.say("I win")
             else 
                 speech.say("I lose")
+            break
+        else: #normal case
+            option = raw_input("Press 1=win or 2=lose: ")
+            if option == "1":
+                speech.say("I win")
+            elif option == "2":
+                speech.say("I lose")
+            else:
+                break
 else:
     print("Error: choose condition control, cheat, or lose")
 
