@@ -18,9 +18,30 @@ def main(session):
     # Get the service ALMotion.
 
     motion_service = session.service("ALMotion")
+    # tracker_service = session.service("ALTracker")
+    # posture_service = session.service("ALRobotPosture")
+
+    # posture_service.applyPosture("Stand", 1.0)
+
+    # targetName = "Face"
+    # faceWidth = 0.2
+    # tracker_service.registerTarget(targetName, faceWidth)
+
+    # # Then, start tracker.
+    # tracker_service.track(targetName)
+
+    # print("ALTracker successfully started, now show your face to robot!")
+    # time.sleep(15)
+    # # Stop tracker.
+    # tracker_service.stopTracker()
+    # tracker_service.unregisterAllTargets()
+
     motion_service.setStiffnesses("RArm", 0.0)
     time.sleep(1.0)
     print(motion_service.getSummary())
+
+    # posture_service.applyPosture("Stand", 1.0)
+    # motion_service.setBreathEnabled('Body', True)
 
 
 if __name__ == "__main__":
