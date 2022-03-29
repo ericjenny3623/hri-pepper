@@ -24,13 +24,10 @@ def main(session):
     resolution = 1  # 0=kQQVGA, 1=kQVGA, 2=kVGA, 3=k4VGA
     colorSpace = 11  # 0=kYuv, 9=kYUV422, 10=kYUV, 11=kRGB, 12=kHSY, 13=kBGR
     fps = 10
-    camera_service.subscribeCamera(name, cameraIndex, resolution, colorSpace, fps)
+    # camera_service.subscribeCamera(name, cameraIndex, resolution, colorSpace, fps)
+    camera_service.unsubscribe("test_4")
     print(camera_service.getSubscribers())
-    for i in range(0,1000):
-        img = camera_service.getImageRemote(name)
-        print(img)
-        cv2.imshow("frame", img)
-        time.sleep(1/fps)
+
 
 
 if __name__ == "__main__":

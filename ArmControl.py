@@ -54,8 +54,8 @@ class ArmControl:
                     [elbowRoll],
                     [wristYaw],
                     [hand]]
-        times = [0.4]
-        timeLists = [times, times, [0.2], times, times, times]
+        times = [0.42]
+        timeLists = [times, times, times, times, times, times]
         isAbsolute = True
         self.service.angleInterpolation(names, angleLists, timeLists, isAbsolute)
         time.sleep(0.5)

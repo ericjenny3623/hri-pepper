@@ -18,6 +18,7 @@ class GazeAndPostureControl:
         self.tracker = session.service("ALTracker")
         self.posture = session.service("ALRobotPosture")
         self.posture.applyPosture("Stand", 1.0)
+        self.tracker.setMode("Head")
 
         targetName = "Face"
         faceWidth = 0.2

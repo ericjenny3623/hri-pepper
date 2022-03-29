@@ -41,7 +41,7 @@ def main(session, speech):
                 speech.say("I win")
             elif option == "2":
                 speech.say("I lose")
-            else:
+            elif option == "q":
                 break
             arm.rest()
     #cheat occurs on 4th, 8th, and 15th rounds
@@ -88,7 +88,7 @@ def main(session, speech):
                     speech.say("I win")
                 elif option == "2":
                     speech.say("I lose")
-                else:
+                elif option == "q":
                     break
                 arm.rest()
     else:
