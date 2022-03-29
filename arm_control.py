@@ -18,19 +18,37 @@ def main(session, speech):
     """
     # Get the service ALMotion.
     motion_service = session.service("ALMotion")
+    motion_service.setIdlePostureEnabled("Body", False)
 
+    motion_service.setAngles("RElbowRoll", 0.4, 0.5)
+    time.sleep(5)
     motion_service.setStiffnesses("Body", 1.0)
-    # Example showing a single trajectory for one joint
-    # Interpolates the head yaw to 1.0 radian and back to zero in 2.0 seconds
-    # names = "LElbowRoll"
-    # angleLists = [-70.0*almath.TO_RAD, -70.0*almath.TO_RAD, 0.0]
-    # #              2 times
-    # timeLists = [1.0, 4.0, 5]
-    # isAbsolute = True
-    # motion_service.angleInterpolation(names, angleLists, timeLists, isAbsolute)
 
+    # palmUp(motion_service)
+    # palmDown(motion_service)
+
+    posture_service = session.service("ALRobotPosture")
+    posture_service.set
+    # # Start breathing
+    # motion_service.setBreathEnabled('Body', True)
+
+    # motion_service.setIdlePostureEnabled("RArm", False)
+
+    # # Let the robot breath
+    # time.sleep(10)
+
+    # # Stop breathing
+    # motion_service.setBreathEnabled('Body', False)
+
+
+def palmUp(motion_service):
     setRArm(motion_service, 1.3, -0.03, 1.23, 1.21, 1.62, 1.0)
+
+
+def palmDown(motion_service):
     setRArm(motion_service, 1.3, -0.03, 1.23, 1.17, -1.56, 1.0)
+
+def fist(motion_service):
     setRArm(motion_service, 1.3, -0.03, 1.23, 1.17, 0, 0.0)
 
 
@@ -43,7 +61,7 @@ def setRArm(proxy, shoulderPitch, shoulderRoll, elbowYaw, elbowRoll, wristYaw, h
               [elbowRoll, elbowRoll, 0.204020],
               [wristYaw, wristYaw, 0.420274],
               [hand, hand, 0.5]]
-    times = [1.0, 4.0, 5.0]
+    times = [0.5, 4.0, 5.0]
     timeLists = [times, times, times, times, times, times]
     isAbsolute = True
     proxy.angleInterpolation(names, angleLists, timeLists, isAbsolute)
