@@ -19,38 +19,30 @@ def main(session, speech):
     # Get the service ALMotion.
     motion_service = session.service("ALMotion")
     motion_service.setIdlePostureEnabled("Body", False)
-
-    motion_service.setAngles("RElbowRoll", 0.4, 0.5)
-    time.sleep(5)
     motion_service.setStiffnesses("Body", 1.0)
-
-    # palmUp(motion_service)
-    # palmDown(motion_service)
-
-    posture_service = session.service("ALRobotPosture")
-    posture_service.set
-    # # Start breathing
-    # motion_service.setBreathEnabled('Body', True)
-
-    # motion_service.setIdlePostureEnabled("RArm", False)
-
-    # # Let the robot breath
-    # time.sleep(10)
-
-    # # Stop breathing
-    # motion_service.setBreathEnabled('Body', False)
+    motion_service.setStiffnesses("RArm", 1.0)
+    palmUp(motion_service)
+    time.sleep(2)
+    rest(motion_service)
+    time.sleep(2)
+    palmDown(motion_service)
+    time.sleep(2)
+    rest(motion_service)
+    motion_service.setIdlePostureEnabled("Body", True)
 
 
 def palmUp(motion_service):
-    setRArm(motion_service, 1.3, -0.03, 1.23, 1.21, 1.62, 1.0)
+    setRArmv3(motion_service, 1.04, -0.0, 0.88, 1.0, 1.8, 1.0)
 
 
 def palmDown(motion_service):
-    setRArm(motion_service, 1.3, -0.03, 1.23, 1.17, -1.56, 1.0)
+    setRArmv3(motion_service, 0.97, -0.0, 0.9, 1.0, -1.07, 1.0)
 
 def fist(motion_service):
     setRArm(motion_service, 1.3, -0.03, 1.23, 1.17, 0, 0.0)
 
+def rest(motion_service):
+    setRArmv3(motion_service, 1.6, -0.1, 1.5, 0.2, 0.4, 0.5)
 
 def setRArm(proxy, shoulderPitch, shoulderRoll, elbowYaw, elbowRoll, wristYaw, hand):
     names = ["RShoulderPitch", "RShoulderRoll",
@@ -61,8 +53,31 @@ def setRArm(proxy, shoulderPitch, shoulderRoll, elbowYaw, elbowRoll, wristYaw, h
               [elbowRoll, elbowRoll, 0.204020],
               [wristYaw, wristYaw, 0.420274],
               [hand, hand, 0.5]]
-    times = [0.5, 4.0, 5.0]
+    times = [0.3, 4.0, 5.0]
     timeLists = [times, times, times, times, times, times]
+    isAbsolute = True
+    proxy.angleInterpolation(names, angleLists, timeLists, isAbsolute)
+
+
+def setRArmNew(proxy, shoulderPitch, shoulderRoll, elbowYaw, elbowRoll, wristYaw, hand):
+    names = ["RShoulderPitch", "RShoulderRoll",
+             "RElbowYaw", "RElbowRoll", "RWristYaw", "RHand"]
+    angleLists = [shoulderPitch, shoulderRoll, elbowYaw, elbowRoll, wristYaw, hand]
+    proxy.setAngles(names, angleLists, 0.2)
+    proxy.setAngles("RElbowRoll", elbowRoll, 0.7)
+
+
+def setRArmv3(proxy, shoulderPitch, shoulderRoll, elbowYaw, elbowRoll, wristYaw, hand):
+    names = ["RShoulderPitch", "RShoulderRoll",
+             "RElbowYaw", "RElbowRoll", "RWristYaw", "RHand"]
+    angleLists = [[shoulderPitch],
+                  [shoulderRoll],
+                  [elbowYaw],
+                  [elbowRoll],
+                  [wristYaw],
+                  [hand]]
+    times = [0.4]
+    timeLists = [times, times, [0.2], times, times, times]
     isAbsolute = True
     proxy.angleInterpolation(names, angleLists, timeLists, isAbsolute)
 
