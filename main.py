@@ -92,7 +92,7 @@ def practice(condition, session, speech):
         sayWinner(speech)
 
 
-def trust():
+def trust(condition, session, speech):
     user = raw_input("Wait to start trust round (enter to continue, q exits)")
     speech.say("Let's play a final round of even and odd. I am going to throw a zero.")
     if user == "q":
@@ -130,6 +130,8 @@ if __name__ == "__main__":
     tts = ALProxy("ALTextToSpeech", pepper_ip, 9559)
 
     print("This is the practice session")
+    practice(args.cond, session, tts)
     print("This is the main game")
     main(args.cond, session, tts)
     print("This is the trust test")
+    trust(condition, session, speech)
