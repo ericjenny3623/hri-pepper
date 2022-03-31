@@ -4,10 +4,7 @@
 """Example: Use angleInterpolation Method"""
 
 import qi
-import argparse
-import sys
 import time
-from naoqi import ALProxy
 
 pepper_ip = "128.237.247.249"
 
