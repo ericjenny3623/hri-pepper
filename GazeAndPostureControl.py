@@ -17,7 +17,10 @@ class GazeAndPostureControl:
     def __init__(self, session):
         self.tracker = session.service("ALTracker")
         self.posture = session.service("ALRobotPosture")
-        self.posture.applyPosture("Stand", 1.0)
+        self.awareness = session.service("ALBasicAwareness")
+        self.awareness.pauseAwareness()
+        self.posture.applyPosture("Stand", 0.6)
+        time.sleep(1.0)
         self.tracker.setMode("Head")
 
         targetName = "Face"
@@ -28,6 +31,8 @@ class GazeAndPostureControl:
     def close(self):
         self.tracker.stopTracker()
         self.tracker.unregisterAllTargets()
+        self.posture.applyPosture("Stand", 0.6)
+        self.awareness.resumeAwareness()
 
 
 if __name__ == "__main__":
