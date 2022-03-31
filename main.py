@@ -25,6 +25,10 @@ def main(condition, session, speech):
     numRounds = 20
     #control
     try:
+        user = raw_input("Wait to start main game (enter to continue, q exits)")
+        speech.say("Hi. Let's play a game of even and odd.")
+        if user == "q":
+                raise StopException()
         for i in range(numRounds):
             speech.say("Even or odd?")
             user = raw_input("Wait for response (enter to continue, q exits)") #wait for human to respond
@@ -49,10 +53,11 @@ def main(condition, session, speech):
                     #     if i <= cheatRounds[i]: #if the round has not passed
                     #         cheatRounds[i] = cheatRounds[i] + 1
                 if condition == "cheat":
-                    speech.say("I win")
+                    speech.say("Yes, I win")
                 else:
-                    speech.say("I lose")
+                    speech.say("Aw, you win")
             arm.rest()
+        speech.say("Thank you for playing with me. Please fill out the survey on the laptop.")
     except StopException:
         print("Quitting")
     except KeyboardInterrupt:
@@ -64,13 +69,43 @@ def main(condition, session, speech):
 def sayWinner(tts):
     option = raw_input("Press 1=win or 2=lose: ")
     if option == "1":
-        tts.say("I win")
+        tts.say("Yes, I win")
     elif option == "2":
-        tts.say("I lose")
+        tts.say("Aw, you win")
     elif option == "q":
         raise StopException()
 
+def practice(condition, session, speech):
+    user = raw_input("Wait to start practice rounds (enter to continue, q exits)")
+    if user == "q":
+        raise StopException()
+    sequence = [1, 2]
+    numRounds = 2
+    for i in range(numRounds):
+        speech.say("Even or odd?")
+        user = raw_input("Wait for response (enter to continue, q exits)") #wait for human to respond
+        if user == "q":
+            raise StopException()
+        speech.say("3 2 1")
+        arm.makeChoice(sequence[i])
+        # We are not cheating
+        sayWinner(speech)
 
+
+def trust():
+    user = raw_input("Wait to start trust round (enter to continue, q exits)")
+    speech.say("Let's play a final round of even and odd. I am going to throw a zero.")
+    if user == "q":
+        raise StopException()
+    numRounds = 1
+    speech.say("Even or odd?")
+    user = raw_input("Wait for response (enter to continue, q exits)") #wait for human to respond
+    if user == "q":
+        raise StopException()
+    speech.say("3 2 1")
+    arm.makeChoice(1)
+    sayWinner(speech)
+    
 class StopException(Exception):
     pass
 
@@ -94,4 +129,7 @@ if __name__ == "__main__":
 
     tts = ALProxy("ALTextToSpeech", pepper_ip, 9559)
 
+    print("This is the practice session")
+    print("This is the main game")
     main(args.cond, session, tts)
+    print("This is the trust test")
