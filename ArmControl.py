@@ -20,26 +20,29 @@ class ArmControl:
         self.service.setStiffnesses("RArm", 1.0)
         self.state = "rest"
 
+    def makeChoice(self, choice):
+        ''' 1 for even and 2 for odd '''
+        if choice == 1:
+            self.even()
+        elif choice == 2:
+            self.odd()
+
     def changeChoice(self):
-        if self.state == "up":
-            self.palmDown()
-        elif self.state == "down":
-            self.palmUp()
+        if self.state == 1:
+            self.even()
+        elif self.state == 0:
+            self.odd()
         else:
             print("Unexpected case for toggle: " + self.state)
         time.sleep(0.4)
 
-    def palmUp(self):
+    def odd(self):
         self._setRArm(1.04, -0.0, 0.88, 1.0, 1.8, 1.0)
-        self.state = "up"
+        self.state = 1
 
-    def palmDown(self):
-        self._setRArm(0.97, -0.0, 0.9, 1.0, -1.07, 1.0)
-        self.state = "down"
-
-    def fist(self):
-        self._setRArm(1.3, -0.03, 1.23, 1.17, 0, 0.0)
-        self.state = "fist"
+    def even(self):
+        self._setRArm(1.04, -0.0, 0.88, 1.0, 1.8, 0.0)
+        self.state = 0
 
     def rest(self):
         self._setRArm(1.6, -0.1, 1.5, 0.2, 0.4, 0.5)
