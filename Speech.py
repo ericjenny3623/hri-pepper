@@ -21,7 +21,7 @@ class Speech:
         self.service.say(text)
 
     def lose(self):
-        self.service.say("Aw, you win")
+        self.service.say("you win")
 
     def win(self):
         self.service.say("Yes, I win")
