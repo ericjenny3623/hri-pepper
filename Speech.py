@@ -20,6 +20,12 @@ class Speech:
     def say(self, text):
         self.service.say(text)
 
+    def lose(self):
+        self.service.say("Aw, you win")
+
+    def win(self):
+        self.service.say("Yes, I win")
+
 if __name__ == "__main__":
     pepper_ip = "128.237.247.249"
     port = "9559"
