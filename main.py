@@ -55,7 +55,7 @@ def main(condition, arm, speech):
         arm.rest()
         i += 1
     speech.say("Thank you for playing with me. Please fill out the survey on the laptop.")
-    print("Cheat rounds: " + cheatRounds)
+    print("Cheat rounds: " + str(cheatRounds))
 
 def waitToStart(text):
     user = raw_input("Wait (enter to continue, q exits) " + text)
@@ -125,12 +125,15 @@ if __name__ == "__main__":
     speech = Speech.Speech(session)
 
     try:
-        print("========== Practice Session ==========")
-        practice(arm, speech)
-        print("========== Main Game ==========")
-        main(args.cond, arm, speech)
-        print("========== Trust Test ==========")
-        trust(arm, speech)
+        if args.cond == "trust":
+            trust(arm, speech)
+        else:
+            print("========== Practice Session ==========")
+            practice(arm, speech)
+            print("========== Main Game ==========")
+            main(args.cond, arm, speech)
+            print("========== Trust Test ==========")
+            trust(arm, speech)
 
     except StopException:
         print("Quitting")

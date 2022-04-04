@@ -36,10 +36,11 @@ def main(session):
     # tracker_service.stopTracker()
     # tracker_service.unregisterAllTargets()
     motion_service.setStiffnesses("Body", 0.5)
+    motion_service.setStiffnesses("RArm", 0.5)
+    motion_service.setStiffnesses("Head", 0.5)
     motion_service.setIdlePostureEnabled("Body", False)
 
     time.sleep(1.0)
-    motion_service.setStiffnesses("RArm", 0.5)
     print(motion_service.getSummary())
 
     # posture_service.applyPosture("Stand", 1.0)
