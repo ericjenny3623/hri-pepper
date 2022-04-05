@@ -16,7 +16,7 @@ class GazeAndPostureControl:
         self.posture = session.service("ALRobotPosture")
         self.awareness = session.service("ALBasicAwareness")
         self.awareness.pauseAwareness()
-        self.posture.applyPosture("Stand", 0.6)
+        self.posture.applyPosture("Stand", 0.3)
         time.sleep(1.0)
         self.tracker.setMode("Head")
 
