@@ -28,7 +28,7 @@ class GazeAndPostureControl:
     def close(self):
         self.tracker.stopTracker()
         self.tracker.unregisterAllTargets()
-        self.posture.applyPosture("Stand", 0.6)
+        self.posture.applyPosture("Stand", 0.3)
         self.awareness.resumeAwareness()
 
 
