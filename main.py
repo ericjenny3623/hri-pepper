@@ -98,6 +98,9 @@ def trust(arm, speech):
     arm.makeChoice(1)
     sayWinner(speech)
     arm.rest()
+    speech.say(
+        "Thank you for participating in our study. Please wait for one of our team members to return.")
+
 
 class StopException(Exception):
     pass
